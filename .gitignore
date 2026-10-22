@@ -1,0 +1,30 @@
+__pycache__/
+*.pyc
+.env
+venv/
+.venv/
+node_modules/
+dist/
+uploads/
+*.db
+.pnpm-store/
+# 数据库备份（tools/redetect.py 等工具会自动生成，如 app.db.bak-20260927-155141）
+*.db.bak-*
+.superpowers/
+*.log
+*.err
+/backend/backend.err
+/backend/backend.log
+/frontend/frontend.err
+/frontend/frontend.log
+/backend/.venv/
+# WorkBuddy 本地工作记忆目录（AI 协作产生的会话/日志数据，不属于项目源码）
+.workbuddy/
+# 设计提案页 / Playwright 调试快照（本地开发辅助，不入库）
+frontend/.design-proposals/
+frontend/.playwright-cli/
+
+# 模型权重（约 248MB）：已纳入 Git LFS，见 .gitattributes。
+# 新环境直接 git clone + git lfs pull 即可，不需要手动拷贝权重。
+# 若所在环境 LFS 不可用，可退回"手动放置"：把权重放到 backend/algorithm/weights/ 下，
+# 并用 backend/algorithm/weights.md5 校验完整性（scripts/setup-windows.ps1 会做这件事）。

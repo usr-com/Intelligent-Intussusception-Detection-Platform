@@ -1,0 +1,39 @@
+# ⚠️ 历史依赖清单（保留用于参考/兼容）。
+# 当前 Python 依赖统一由 uv 管理：backend/pyproject.toml + backend/uv.lock
+# 安装方式：cd backend && uv sync
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+python-multipart==0.0.19
+python-dotenv==1.2.2
+tzdata==2025.2
+alembic==1.14.0
+pytest==8.3.4
+httpx==0.28.1
+
+# ---------------------------------------------------------------------------
+# 算法侧依赖（跑真实模型才需要；只用 Mock 演示时可不安）
+#
+# ⚠️ 关键：只装本文件 **不足以**跑真实推理！
+#    `pipeline.load_image()` 硬依赖 numpy + pillow，检测/预后模型还依赖 ultralytics + torch。
+#    这些依赖目前不在本文件里（避免把 torch 写进来导致误装 CUDA 版），
+#    它们由算法侧维护在：
+#        backend/algorithm/requirements-algorithm.txt
+#
+# 完整安装顺序（在 backend 目录下）：
+#   1) 先装 CPU 版 torch（约 126MB；本机无 N 卡时不要装 CUDA 版）：
+#      pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+#   2) 再装算法侧依赖：
+#      pip install -r algorithm/requirements-algorithm.txt
+#
+# 有 NVIDIA 显卡、想用 GPU 推理时，把第 1 步的 index-url 换成
+#      https://download.pytorch.org/whl/cu124
+#
+# 权重：
+#   · 检测槽位（OBB，约 93MB）—— 已提交进 Git，clone 即有
+#   · 预后槽位（约 150MB，12 个文件）—— 被 .gitignore 排除，换机器需单独拷贝到
+#     backend/algorithm/weights/
+# ---------------------------------------------------------------------------

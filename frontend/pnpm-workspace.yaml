@@ -1,0 +1,9 @@
+# pnpm 12 默认禁止依赖执行构建脚本；本前端只有这三个包需要：
+#   esbuild   —— 校验/就位平台二进制（Vite 构建必需）
+#   core-js   —— 生成 polyfill 元数据（Element Plus 依赖链）
+#   vue-demi  —— 根据 Vue 版本切换入口（Pinia 依赖）
+# 显式允许后，pnpm install 不再因 ERR_PNPM_IGNORED_BUILDS 中断。
+allowBuilds:
+  esbuild: true
+  core-js: true
+  vue-demi: true

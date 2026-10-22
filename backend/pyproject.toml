@@ -1,0 +1,46 @@
+[project]
+name = "intussusception-platform-backend"
+version = "1.0.0"
+description = "儿童肠套叠超声影像 AI 辅助诊断平台 · FastAPI 后端"
+requires-python = ">=3.11,<3.15"
+dependencies = [
+    # ---- Web 服务 ----
+    "fastapi==0.115.6",
+    "uvicorn[standard]==0.34.0",
+    "sqlalchemy==2.0.36",
+    "python-jose[cryptography]==3.3.0",
+    "passlib[bcrypt]==1.7.4",
+    "bcrypt==4.0.1",
+    "python-multipart==0.0.19",
+    "python-dotenv==1.2.2",
+    "tzdata==2025.2",
+    "alembic==1.14.0",
+    # ---- 算法 / 推理（原 algorithm/requirements-algorithm.txt）----
+    "pillow>=10.0",
+    "numpy>=1.24",
+    "opencv-python>=4.6.0",
+    "pydicom>=2.4",
+    "ultralytics==8.4.56",
+    "torch>=2.6",
+    "torchvision>=0.21",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==8.3.4",
+    "httpx==0.28.1",
+]
+
+[tool.uv]
+# 应用工程（源码直接运行，不打 wheel）
+package = false
+
+[tool.uv.sources]
+# PyTorch 走官方 CPU 源，避免误装约 2.5GB 的 CUDA 版本
+torch = { index = "pytorch-cpu" }
+torchvision = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
